@@ -34,11 +34,17 @@ data = [
 
 DD, SE, LD, SB, Y = 1, 2, 3, 4, 5  # column indices
 
-# ── PSR calculation ───────────────────────────────────────────────────────────
+# ── Input Table (Y removed) ────────────────────────────────────────────────────
 print("=" * 60)
 print("CS 4346 Project 1 - Table E: Should the car sound an alert?")
 print("=" * 60)
+print("\n--- Input Table (Y values hidden) ---")
+print(f"{'Label':>6}  {'Driver_Drowsy':>13}  {'Speed_Exceeded':>14}  {'Lane_Departure':>14}  {'Seatbelt_Off':>12}")
+print("-" * 70)
+for row in data:
+    print(f"{row[0]:>6}  {row[DD]:>13}  {row[SE]:>14}  {row[LD]:>14}  {row[SB]:>12}")
 
+# ── PSR calculation ───────────────────────────────────────────────────────────
 positives = [r for r in data if r[Y] == 1]
 negatives = [r for r in data if r[Y] == 0]
 print(f"\nTotal rows : {len(data)}")

@@ -35,11 +35,17 @@ data = [
 headers = ['Label', 'Lane_Clear', 'Speed_Safe', 'Turn_Signal_On', 'No_Blind_Spot', 'Y']
 LC, SS, TS, NB, Y = 1, 2, 3, 4, 5  # column indices
 
-# ── PSR calculation ───────────────────────────────────────────────────────────
+# ── Input Table (Y removed) ────────────────────────────────────────────────────
 print("=" * 60)
 print("CS 4346 Project 1 - Table B: Should the car change lanes?")
 print("=" * 60)
+print("\n--- Input Table (Y values hidden) ---")
+print(f"{'Label':>6}  {'Lane_Clear':>10}  {'Speed_Safe':>10}  {'Turn_Signal_On':>14}  {'No_Blind_Spot':>13}")
+print("-" * 65)
+for row in data:
+    print(f"{row[0]:>6}  {row[LC]:>10}  {row[SS]:>10}  {row[TS]:>14}  {row[NB]:>13}")
 
+# ── PSR calculation ───────────────────────────────────────────────────────────
 positives = [r for r in data if r[Y] == 1]
 negatives = [r for r in data if r[Y] == 0]
 print(f"\nTotal rows : {len(data)}")
