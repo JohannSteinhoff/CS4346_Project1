@@ -1,0 +1,122 @@
+// CS 4346 - Project 1 - Table B: Should the car change lanes?
+// Student ID: ngq7
+// PSR Definition: PSR(P) = #{rows where P=1 AND Y=1} / #{rows where P=1}
+//
+// Rule discovered using PSR:
+//   Rule 1: If Lane_Clear=1 AND Turn_Signal_On=1 AND No_Blind_Spot=1 => Y=1
+//   Default: Otherwise => Y=0
+//   Note: Speed_Safe has no effect on Y in this dataset.
+//
+// Compile: g++ -std=c++17 Project1-ngq7-TableB.cpp -o Project1-ngq7-TableB
+// Run:     ./Project1-ngq7-TableB
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+struct Row {
+    int label, lc, ss, ts, nb, y;
+};
+
+int predict(const Row& r) {
+    return (r.lc == 1 && r.ts == 1 && r.nb == 1) ? 1 : 0;
+}
+
+int psr_npos(const vector<Row>& data, int col) {
+    int n = 0;
+    for (const auto& r : data) {
+        int val = (col==0)?r.lc:(col==1)?r.ss:(col==2)?r.ts:r.nb;
+        if (val == 1 && r.y == 1) n++;
+    }
+    return n;
+}
+
+int psr_n(const vector<Row>& data, int col) {
+    int n = 0;
+    for (const auto& r : data) {
+        int val = (col==0)?r.lc:(col==1)?r.ss:(col==2)?r.ts:r.nb;
+        if (val == 1) n++;
+    }
+    return n;
+}
+
+int main() {
+    vector<Row> data = {
+        {1,1,1,1,1,1},{2,1,0,1,1,1},{3,0,1,1,0,0},{4,1,0,1,0,0},{5,1,0,1,1,1},
+        {6,1,1,0,0,0},{7,0,0,1,0,0},{8,1,1,1,0,0},{9,1,1,1,1,1},{10,1,1,0,1,0},
+        {11,0,0,1,0,0},{12,1,1,0,1,0},{13,0,0,1,0,0},{14,1,1,1,0,0},{15,1,1,0,1,0},
+        {16,1,1,1,1,1},{17,1,1,1,1,1},{18,0,1,0,0,0},{19,1,0,1,1,1},{20,0,1,1,0,0},
+        {21,0,1,0,0,0},{22,0,1,1,1,0},{23,1,1,0,0,0},{24,0,0,0,1,0},{25,0,1,1,1,0},
+        {26,1,0,1,1,1},{27,1,1,1,0,0},{28,1,0,1,0,0},{29,1,0,1,0,0},{30,1,1,0,1,0},
+        {31,1,1,0,1,0},{32,1,1,1,0,0},{33,1,1,1,1,1},{34,0,0,0,1,0},{35,1,1,0,1,0},
+        {36,0,1,0,1,0},{37,1,0,1,1,1},{38,1,1,0,0,0},{39,1,1,1,1,1},{40,1,1,1,1,1},
+        {41,1,1,1,0,0},{42,1,1,1,1,1},{43,1,1,0,0,0},{44,1,0,1,1,1},{45,1,0,1,1,1},
+        {46,0,1,1,1,0},{47,1,1,1,1,1},{48,1,1,1,0,0},{49,1,1,1,1,1},{50,1,1,1,1,1},
+        {51,0,1,1,1,0},{52,1,1,1,1,1},{53,1,1,0,1,0},{54,1,1,1,1,1},{55,0,1,0,0,0},
+        {56,1,1,0,1,0},{57,1,0,1,0,0},{58,0,1,1,1,0},{59,0,1,1,1,0},{60,1,0,1,0,0},
+        {61,1,1,1,1,1},{62,1,0,1,0,0},{63,1,1,1,1,1},{64,1,1,0,0,0},{65,1,1,1,1,1},
+        {66,1,1,0,1,0},{67,0,1,1,1,0},{68,1,1,0,1,0},{69,0,1,1,1,0},{70,1,1,1,1,1},
+        {71,1,1,1,1,1},{72,1,0,1,1,1},{73,1,0,1,0,0},{74,1,1,1,1,1},{75,1,1,1,0,0},
+        {76,1,0,0,1,0},{77,1,1,1,1,1},{78,1,1,1,0,0},{79,0,1,1,1,0},{80,1,0,1,1,1},
+        {81,0,0,1,0,0},{82,1,1,1,1,1},{83,0,1,0,0,0},{84,1,1,1,1,1},{85,1,1,1,1,1},
+        {86,1,0,1,1,1},{87,1,1,0,0,0},{88,0,1,0,1,0},{89,1,1,1,1,1},{90,1,1,1,1,1},
+        {91,1,0,1,1,1},{92,1,0,0,1,0},{93,1,1,1,0,0},{94,1,0,1,1,1},{95,0,1,0,1,0},
+        {96,1,1,1,1,1},{97,1,1,0,1,0},{98,1,0,0,1,0},{99,0,1,1,0,0},{100,0,1,1,0,0}
+    };
+
+    string names[] = {"Lane_Clear","Speed_Safe","Turn_Signal_On","No_Blind_Spot"};
+
+    cout << "============================================================" << endl;
+    cout << "CS 4346 Project 1 - Table B: Should the car change lanes?" << endl;
+    cout << "============================================================" << endl;
+
+    int pos = 0, neg = 0;
+    for (auto& r : data) (r.y==1 ? pos : neg)++;
+    cout << "\nTotal rows : " << data.size() << endl;
+    cout << "Positives  : " << pos << "  (Y=1, change lane)" << endl;
+    cout << "Negatives  : " << neg << "  (Y=0, stay in lane)" << endl;
+
+    cout << "\n--- PSR Values ---" << endl;
+    for (int c = 0; c < 4; c++) {
+        int np = psr_npos(data, c), n = psr_n(data, c);
+        cout << fixed << setprecision(4);
+        cout << "  PSR(" << names[c] << ") = " << np << "/" << n
+             << " = " << (n > 0 ? (double)np/n : 0.0) << endl;
+    }
+
+    cout << "\n--- Generated Rule ---" << endl;
+    cout << "  Rule 1: Lane_Clear=1 AND Turn_Signal_On=1 AND No_Blind_Spot=1  =>  Y=1" << endl;
+    cout << "  Default: Otherwise  =>  Y=0" << endl;
+    cout << "  Note: Speed_Safe has no effect on Y in this dataset." << endl;
+
+    cout << "\n--- Predictions vs Actual ---" << endl;
+    cout << setw(6) << "Label" << setw(4) << "LC" << setw(4) << "SS"
+         << setw(4) << "TS" << setw(4) << "NB" << setw(10) << "Actual Y"
+         << setw(8) << "Pred Y" << setw(7) << "Match" << endl;
+    cout << string(50, '-') << endl;
+
+    int errors = 0;
+    for (auto& r : data) {
+        int pred = predict(r);
+        string match = (pred == r.y) ? "OK" : "FAIL";
+        if (pred != r.y) errors++;
+        cout << setw(6) << r.label << setw(4) << r.lc << setw(4) << r.ss
+             << setw(4) << r.ts << setw(4) << r.nb << setw(10) << r.y
+             << setw(8) << pred << setw(7) << match << endl;
+    }
+
+    cout << "\n--- Verification Summary ---" << endl;
+    cout << "  Total rows : " << data.size() << endl;
+    cout << "  Correct    : " << (data.size() - errors) << endl;
+    cout << "  Errors     : " << errors << endl;
+    cout << fixed << setprecision(1);
+    cout << "  Accuracy   : " << (100.0*(data.size()-errors)/data.size()) << "%" << endl;
+    if (errors == 0)
+        cout << "\n  RESULT: Rule satisfies ALL 100 rows. Verification PASSED." << endl;
+    else
+        cout << "\n  RESULT: " << errors << " row(s) failed. Verification FAILED." << endl;
+
+    return 0;
+}

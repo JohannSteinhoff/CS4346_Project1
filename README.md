@@ -52,12 +52,20 @@ This project demonstrates Machine Learning from Tables using the PSR (Parameter 
 
 ## Requirements
 
+### Python
 Python 3.x must be installed. No external libraries are required — the code uses only built-in Python.
 
-To check your Python version, run:
-
+To check your Python version:
 ```bash
 python --version
+```
+
+### C++
+A C++ compiler supporting C++17 is required (g++ recommended).
+
+To check if g++ is installed:
+```bash
+g++ --version
 ```
 
 ---
@@ -67,36 +75,57 @@ python --version
 Open a terminal in the project folder and run the script for each table.
 
 ### Table A — Should the car brake?
-
 ```bash
 python Project1-ngq7-TableA.py
 ```
 
 ### Table B — Should the car change lanes?
-
 ```bash
 python Project1-ngq7-TableB.py
 ```
 
 ### Table E — Should the car sound an alert?
-
 ```bash
 python Project1-ngq7-TableE.py
 ```
 
 ---
 
+## How to Run the C++ Code
+
+### Table A
+```bash
+g++ -std=c++17 Project1-ngq7-TableA.cpp -o Project1-ngq7-TableA
+./Project1-ngq7-TableA
+```
+
+### Table B
+```bash
+g++ -std=c++17 Project1-ngq7-TableB.cpp -o Project1-ngq7-TableB
+./Project1-ngq7-TableB
+```
+
+### Table E
+```bash
+g++ -std=c++17 Project1-ngq7-TableE.cpp -o Project1-ngq7-TableE
+./Project1-ngq7-TableE
+```
+
+> **Windows note:** If using Windows without WSL, replace `./Project1-ngq7-TableX` with `Project1-ngq7-TableX.exe`
+
+---
+
 ## Expected Output
 
-Each script will output:
+Each script (Python or C++) will output:
 
 1. Total row counts (positives and negatives)
-2. PSR value for each parameter (with step-by-step breakdown)
+2. PSR value for each parameter
 3. The generated ML rules
 4. Prediction vs actual Y for every row
-5. Final accuracy (100% if rules are perfect)
+5. Final accuracy (should be 100%)
 
-Example output snippet:
+Example:
 ```
 --- Verification Summary ---
   Total rows : 100
@@ -106,3 +135,8 @@ Example output snippet:
 
   RESULT: Rules satisfy ALL 100 rows. Verification PASSED.
 ```
+
+Pre-run output files are also included for reference:
+- `Project1-ngq7-TableA-output.txt`
+- `Project1-ngq7-TableB-output.txt`
+- `Project1-ngq7-TableE-output.txt`

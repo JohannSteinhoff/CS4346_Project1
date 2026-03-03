@@ -1,0 +1,130 @@
+=======================================================
+CS 4346 Project 1 - Table A: Should the car brake?
+=======================================================
+
+Total rows : 100
+Positives  : 28  (Y=1, car should brake)
+Negatives  : 72  (Y=0, no braking needed)
+
+--- PSR Values ---
+  PSR(Obstacle_Detected) = 25/52 = 0.481
+  PSR(Speed_High) = 16/43 = 0.372
+  PSR(Wet_Road) = 14/48 = 0.292
+  PSR(Short_Distance) = 28/43 = 0.651
+
+--- Generated Rules ---
+  Rule 1: Obstacle_Detected=1 AND Short_Distance=1  =>  Y=1
+  Rule 2: Speed_High=1 AND Wet_Road=1 AND Short_Distance=1  =>  Y=1
+  Default: Otherwise  =>  Y=0
+
+--- Predictions vs Actual ---
+ Label  Obstacle  Speed  Wet  Short  Actual Y  Pred Y  Match
+-----------------------------------------------------------------
+     1         0      0    1      0         0       0     OK
+     2         0      0    0      0         0       0     OK
+     3         1      0    0      0         0       0     OK
+     4         0      0    0      0         0       0     OK
+     5         1      0    1      1         1       1     OK
+     6         0      0    1      1         0       0     OK
+     7         1      0    0      1         1       1     OK
+     8         0      0    1      0         0       0     OK
+     9         1      1    1      0         0       0     OK
+    10         1      0    1      0         0       0     OK
+    11         1      1    0      0         0       0     OK
+    12         0      0    1      0         0       0     OK
+    13         0      0    1      1         0       0     OK
+    14         1      1    0      1         1       1     OK
+    15         1      0    1      0         0       0     OK
+    16         0      0    0      1         0       0     OK
+    17         1      1    0      1         1       1     OK
+    18         0      0    0      1         0       0     OK
+    19         1      1    0      0         0       0     OK
+    20         1      0    1      1         1       1     OK
+    21         1      0    1      0         0       0     OK
+    22         0      1    1      1         1       1     OK
+    23         1      0    0      1         1       1     OK
+    24         0      0    0      0         0       0     OK
+    25         0      1    0      1         0       0     OK
+    26         1      1    1      0         0       0     OK
+    27         0      1    1      0         0       0     OK
+    28         1      1    0      1         1       1     OK
+    29         0      1    0      0         0       0     OK
+    30         1      0    0      1         1       1     OK
+    31         0      0    1      1         0       0     OK
+    32         0      0    1      1         0       0     OK
+    33         0      0    0      0         0       0     OK
+    34         0      1    0      0         0       0     OK
+    35         0      1    0      1         0       0     OK
+    36         1      0    0      1         1       1     OK
+    37         1      1    1      1         1       1     OK
+    38         0      0    0      0         0       0     OK
+    39         1      0    0      0         0       0     OK
+    40         0      0    0      0         0       0     OK
+    41         0      0    1      0         0       0     OK
+    42         0      1    1      0         0       0     OK
+    43         0      1    0      1         0       0     OK
+    44         1      0    0      0         0       0     OK
+    45         1      1    1      1         1       1     OK
+    46         1      0    0      0         0       0     OK
+    47         1      1    0      0         0       0     OK
+    48         0      0    1      0         0       0     OK
+    49         1      0    1      1         1       1     OK
+    50         0      0    1      0         0       0     OK
+    51         0      0    0      0         0       0     OK
+    52         0      1    1      1         1       1     OK
+    53         0      1    0      0         0       0     OK
+    54         1      0    1      1         1       1     OK
+    55         1      1    1      1         1       1     OK
+    56         0      0    1      0         0       0     OK
+    57         0      0    1      0         0       0     OK
+    58         0      1    0      0         0       0     OK
+    59         0      0    0      0         0       0     OK
+    60         0      1    0      0         0       0     OK
+    61         0      0    1      1         0       0     OK
+    62         1      0    1      0         0       0     OK
+    63         1      1    0      1         1       1     OK
+    64         1      1    0      0         0       0     OK
+    65         1      0    0      0         0       0     OK
+    66         1      0    1      0         0       0     OK
+    67         0      1    1      0         0       0     OK
+    68         1      1    0      1         1       1     OK
+    69         0      0    1      0         0       0     OK
+    70         0      0    1      1         0       0     OK
+    71         0      1    0      1         0       0     OK
+    72         1      1    0      0         0       0     OK
+    73         1      1    0      0         0       0     OK
+    74         1      0    1      0         0       0     OK
+    75         1      1    0      0         0       0     OK
+    76         0      0    0      1         0       0     OK
+    77         0      1    0      0         0       0     OK
+    78         1      1    0      1         1       1     OK
+    79         0      0    0      1         0       0     OK
+    80         1      0    0      0         0       0     OK
+    81         0      1    0      0         0       0     OK
+    82         1      1    0      1         1       1     OK
+    83         0      0    1      0         0       0     OK
+    84         1      0    0      1         1       1     OK
+    85         1      1    0      0         0       0     OK
+    86         0      0    1      1         0       0     OK
+    87         1      0    1      1         1       1     OK
+    88         1      1    0      0         0       0     OK
+    89         1      0    1      0         0       0     OK
+    90         0      1    1      1         1       1     OK
+    91         1      0    1      0         0       0     OK
+    92         1      0    1      0         0       0     OK
+    93         0      1    1      0         0       0     OK
+    94         1      1    0      1         1       1     OK
+    95         1      1    1      1         1       1     OK
+    96         1      0    0      1         1       1     OK
+    97         1      0    1      1         1       1     OK
+    98         0      1    1      0         0       0     OK
+    99         1      1    1      1         1       1     OK
+   100         1      0    1      0         0       0     OK
+
+--- Verification Summary ---
+  Total rows   : 100
+  Correct      : 100
+  Errors       : 0
+  Accuracy     : 100.0%
+
+  RESULT: Rules satisfy ALL 100 rows. Verification PASSED.
